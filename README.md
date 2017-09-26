@@ -7,10 +7,10 @@ Self-Driving Car Engineer Nanodegree Program
 [image1]: ./result/spline.png "spline"
 [image2]: ./result/cost.png "cost"
    
-## Goals
+### Goals
 In this project your goal is to safely navigate around a virtual highway with other traffic that is driving +-10 MPH of the 50 MPH speed limit. You will be provided the car's localization and sensor fusion data, there is also a sparse map list of waypoints around the highway. The car should try to go as close as possible to the 50 MPH speed limit, which means passing slower traffic when possible, note that other cars will try to change lanes too. The car should avoid hitting other cars at all cost as well as driving inside of the marked road lanes at all times, unless going from one lane to another. The car should be able to make one complete loop around the 6946 m (4.32 miles) highway. Since the car is trying to go 50 MPH, it should take a little over 5 minutes to complete 1 loop. Also the car should not experience total acceleration over 10 m/s^2 and jerk that is greater than 10 m/s^3 and total jerk that is less than 50 m/s^3.
 
-## The map of the highway (/data/highway_map.txt)
+### The map of the highway (/data/highway_map.txt)
 Each waypoint in the list contains  [x,y,s,dx,dy] values (all are in meters) 
 x and y are the waypoint's map coordinate position.
 s is the distance along the road to get to that waypoint. 
@@ -18,7 +18,7 @@ the dx and dy values define the unit normal vector pointing outward of the highw
 
 The highway's waypoints loop around so the frenet s value, distance along the road, goes from 0 to 6945.554.
 
-## Road Configuration and Axis Orientation
+### Road Configuration and Axis Orientation
 The dual highway with 3 lanes on each side.
 ```sh
 
@@ -44,7 +44,7 @@ The dual highway with 3 lanes on each side.
                               
 ```
 
-## Main car's localization Data (No Noise) received from the simulator  
+### Main car's localization Data (No Noise) received from the simulator  
 ["x"] The car's x position in map coordinates (m)  
 ["y"] The car's y position in map coordinates (m)  
 ["s"] The car's s position in frenet coordinates (m)  
@@ -56,13 +56,13 @@ The dual highway with 3 lanes on each side.
 ["end_path_s"] The previous list's last point's frenet s value (m)  
 ["end_path_d"] The previous list's last point's frenet d value (m)  
 
-## Sensor Fusion Data, a list of all other car's attributes on the same side of the road. (No Noise)
+### Sensor Fusion Data, a list of all other car's attributes on the same side of the road. (No Noise)
 ["sensor_fusion"] A 2d vector of other cars (traffic) in the following format,
 
 [car ID, x position (m), y position (m), x velocity (m/s), y velocity (m/s), s position in frenet (m), d position in frenet (m). 
 
 
-## Output to the simulator
+### Output to the simulator
 The simulator is expecting the list of x,y points in the map coordinate for the car to go in the next cycle. As mentioned below, the simulator executes this point every 20 ms loop. Therefore the distance between the points would also reflect the speed of the car. We need to take this into account planning the path.
 
 ## System Design 
@@ -212,7 +212,7 @@ The decision making in driving is influenced by the weight factors (see **consta
 With these cost functions, the car would consider moving to the goal lane (the rightmost lane, 2 as tested in this project). It is also favoring the less congested lane in front and the speed. So ideally the car would over-take the slow vehicle in front if no collision or potential danger (justified by the time-gaps between other vehicles). 
 
 
-## Experiment and Result
+### Experiment and Result
 The result video is experimented with the weight factors as in constant.h.
 The trajectory is a 50-points path with a 0.02 time step (1 second path). The safety related parameters are 
 
