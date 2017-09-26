@@ -4,8 +4,8 @@ Self-Driving Car Engineer Nanodegree Program
 
 [//]: # (Image References)
 [image0]: ./result/task.png "task"
-[image1]: ./result/spline.py "spline"
-[image2]: ./result/cost.py "cost"
+[image1]: ./result/spline.png "spline"
+[image2]: ./result/cost.png "cost"
    
 ### Goals
 In this project your goal is to safely navigate around a virtual highway with other traffic that is driving +-10 MPH of the 50 MPH speed limit. You will be provided the car's localization and sensor fusion data, there is also a sparse map list of waypoints around the highway. The car should try to go as close as possible to the 50 MPH speed limit, which means passing slower traffic when possible, note that other cars will try to change lanes too. The car should avoid hitting other cars at all cost as well as driving inside of the marked road lanes at all times, unless going from one lane to another. The car should be able to make one complete loop around the 6946 m (4.32 miles) highway. Since the car is trying to go 50 MPH, it should take a little over 5 minutes to complete 1 loop. Also the car should not experience total acceleration over 10 m/s^2 and jerk that is greater than 10 m/s^3 and total jerk that is less than 50 m/s^3.
@@ -44,17 +44,17 @@ The dual highway with 3 lanes on each side.
                               
 ```
 
-### Main car's localization Data (No Noise) received from the simulator
-["x"] The car's x position in map coordinates (m)
-["y"] The car's y position in map coordinates (m)
-["s"] The car's s position in frenet coordinates (m)
-["d"] The car's d position in frenet coordinates (m)
-["yaw"] The car's yaw angle in the map (degree)
-["speed"] The car's speed (MPH)
-["previous_path_x"] The previous list of x points (processed points removed) previously given to the simulator (m)
-["previous_path_y"] The previous list of y points (processed points removed) previously given to the simulator (m)
-["end_path_s"] The previous list's last point's frenet s value (m)
-["end_path_d"] The previous list's last point's frenet d value (m)
+### Main car's localization Data (No Noise) received from the simulator  
+["x"] The car's x position in map coordinates (m)  
+["y"] The car's y position in map coordinates (m)  
+["s"] The car's s position in frenet coordinates (m)  
+["d"] The car's d position in frenet coordinates (m)  
+["yaw"] The car's yaw angle in the map (degree)  
+["speed"] The car's speed (MPH)  
+["previous_path_x"] The previous list of x points (processed points removed) previously given to the simulator (m)  
+["previous_path_y"] The previous list of y points (processed points removed) previously given to the simulator (m)  
+["end_path_s"] The previous list's last point's frenet s value (m)  
+["end_path_d"] The previous list's last point's frenet d value (m)  
 
 ### Sensor Fusion Data, a list of all other car's attributes on the same side of the road. (No Noise)
 ["sensor_fusion"] A 2d vector of other cars (traffic) in the following format,
@@ -66,16 +66,8 @@ The dual highway with 3 lanes on each side.
 The simulator is expecting the list of x,y points in the map coordinate for the car to go in the next cycle. As mentioned below, the simulator executes this point every 20 ms loop. Therefore the distance between the points would also reflect the speed of the car. We need to take this into account planning the path.
 
 ### System Design 
-The main functionlities are
 
-```sh
-task flow: **main.cpp** 
-      * Car state update/localisation (data from the simulator- every loop) 
-      * Traffic update and prediction (data from the simulator- every loop) 
-      * Spline line path planning (every loop) 
-      * Behaviour control (every 50 loops) e.g. stay in lane, lane change left or right based on the cost
-
-```
+The project has the following files:
 
 ```sh
 Files: 
@@ -87,6 +79,16 @@ Files:
         constant.h              : Parameters
 ``` 
 
+The functionlities are
+
+```sh
+task flow: main.cpp 
+      * Car state update/localisation (data from the simulator- every loop) 
+      * Traffic update and prediction (data from the simulator- every loop) 
+      * Spline line path planning (every loop) 
+      * Behaviour control (every 50 loops) e.g. stay in lane, lane change left or right based on the cost
+
+```
 
 #### Execution Flow
 
@@ -94,19 +96,20 @@ Files:
 Figure 1: Task Flow
 
 In the **main.cpp**:
-The task runs in sequential order. The car and traffic information(sensor_fusion) are first get updated along with the reference the goal point for our vehicle to get to.
+The task runs in sequential order. The car and traffic information(sensor_fusion) are first get updated along with the reference goal point for our vehicle to get to.
 [code: lines 144-196]
 
-If the behaviour planning is not activate. We goto the normal routine of the path planning and motion control via trajectory generation on the current lane (no lane change).  
+If the behaviour planning is not activate, the task runs the normal routine of the path planning and motion control via trajectory generation on the current lane (no lane change).  
 [code: lines 262-289]
 
-After the cold start (> 100 loops) and every 50 loops cycle, the behaviour planning action is activated to plan for appropriate action such as staying in this lane or changing one  
-with respect to the associate cost that will be presented later on.
+After the cold start (> 100 loops) and every 50 loops cycle, the behaviour control is activated to plan for an appropriate action such as staying in this lane or changing one  
+determined by the cost (thid will be presented later on).
 [code: lines 199-258]
 
 
 #### Path Planning (Trajectory Generation) 
-In this project, the trajectory has been generated by using the spline line library (spline.h) fitting through constriant points.
+In this project, the vehicle trajectory has been generated with the spline library (spline.h) fitting through constriant points.
+
 For the smooth transition, the last 2 points from the previous path were used as a constriant for a spline line fitting. Together with the next 3-constraint points (experimenting with 30m apart) where we want the vehicle to be in the future (as shown by the figure 2), the full spline model was then generated for the smooth transition.
 
 					[code: vehicle.cpp in SplineLineTrajectory(..), lines 185-220]
