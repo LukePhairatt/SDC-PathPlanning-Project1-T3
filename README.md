@@ -107,7 +107,8 @@ determined by the cost (thid will be presented later on).
 [code: lines 199-258]
 
 
-### Path Planning (Trajectory Generation) 
+### Path Planning (Trajectory Generation)     
+**Spline line**  
 In this project, the vehicle trajectory has been generated with the spline library (spline.h) fitting through constriant points.
 
 For the smooth transition, the last 2 points from the previous path were used as a constriant for a spline line fitting. Together with the next 3-constraint points (experimenting with 30m apart) where we want the vehicle to be in the future (as shown by the figure 2), the full spline model was then generated for the smooth transition.
@@ -186,16 +187,23 @@ The transition of these states are defined by the 'MINIMUM'cost of actions in as
 
 The implementation of these cost function are in **cost_functions.h**.
 
-* toward the goal lane: reward if moving to the goal lane, penalise if moving away (see line 115, **change_lane_cost(..)**)   
-* distance from the goal point: ideally we want to switch lane only when we are still quite far away from goal and toward the goal lane(see line 130, **distance_from_goal_lane(..)**)  
-* traffic in the lane: choose to go into the low traffic lane (small number of cars in that lane), (see line 151, **traffic_in_lane(..)**)  
-* collision: check trajectory between our car and others for collision(see line 195, **collision_cost(..)**)  
-* time gap between cars in front and behind: the time gap between the front and rear car to measure safety in the lane change (see line 217, **buffer_cost(..)**)  
-* speed efficiency: we ideally want to choose the lane that make the car to go with a faster speed (see line 239, **speed_efficiency(..)**)  
+* toward the goal lane: reward if moving to the goal lane, penalise if moving away  
+ (see line 115, **change_lane_cost(..)**)   
+* distance from the goal point: ideally we want to switch lane only when we are still quite far away from goal and toward the goal lane  
+ (see line 130, **distance_from_goal_lane(..)**)  
+* traffic in the lane: choose to go into the low traffic lane (small number of cars in that lane)  
+ (see line 151, **traffic_in_lane(..)**)  
+* collision: check trajectory between our car and others for collision  
+ (see line 195, **collision_cost(..)**)  
+* time gap between cars in front and behind: the time gap between the front and rear car to measure safety in the lane change  
+ (see line 217, **buffer_cost(..)**)  
+* speed efficiency: we ideally want to choose the lane that make the car to go with a faster speed  
+ (see line 239, **speed_efficiency(..)**)  
 
-The meaning of these cost terms is presented in figure 3.
+Some illustration of these cost terms are presented in figure 3.
 
 ![cost][image2]
+
 Figure 3. Cost function elements
 
 
