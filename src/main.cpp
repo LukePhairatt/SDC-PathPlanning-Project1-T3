@@ -146,7 +146,9 @@ int main() {
           	// ----------------------------------- //
           	if(goal_s < car_s){
           	  goal_s += car_s; 
+          	  std::cout << "============================" << std::endl; 
           	  std::cout << "Setting new local goal s: " << goal_s << std::endl; 
+          	  std::cout << "============================" << std::endl; 
 		    }
 		    
 		    // ----------------------------------- //
@@ -237,7 +239,7 @@ int main() {
 				{
 				  // get the lane to go to from the current lane, and the request action 
 				  int transit_lane = myVehicle.lane_transition(states[i]);
-				  cout << "Trajectory for lane " << transit_lane << endl; 	
+				  //cout << "Trajectory for lane " << transit_lane << endl; 	
 				  		  
 				  // gen trajectory
 				  myVehicle.proposed_lane = transit_lane; // we gonna need this in the trajectory gen and cost function
@@ -255,7 +257,7 @@ int main() {
 				// also check feasability (e.g. no potential collision)	
 				// because the lowest cost doesn't mean collision free
 				lane = get_mincost_action(lane, BUFFER_TIME, costs);
-                cout << " ----- I am going to lane: ----- " << lane << endl;
+                cout << "----- I am going to lane: ----- " << lane << endl;
 		    }
 		    
       

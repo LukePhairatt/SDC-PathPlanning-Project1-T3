@@ -84,7 +84,7 @@ double Vehicle::get_next_target_speed(const map<int, traffic_data>& tf_data, dou
   */
  
   bool too_close = false;                  					// initial flag for near collision condition
-  double target_v = mycar_speed;           					// m/s : current target speed 
+  //double target_v = mycar_speed;           					// m/s : current target speed 
   double target_s = mycar_end_s;           					// m : keep distance from this point
   
   // filter lane traffic to obtain only the front cars
@@ -122,7 +122,7 @@ double Vehicle::get_next_target_speed(const map<int, traffic_data>& tf_data, dou
 	  {
 		// making some decision here to slow down
 		too_close = true;
-		target_v = check_speed;           					        // desire velocity (match the car in front)
+		//target_v = check_speed;           					        // desire velocity (match the car in front)
 	  }	
     } 
     
@@ -214,10 +214,10 @@ Trajectory Vehicle::SplineLineTrajectory(const map<int, traffic_data>& tf_data, 
   
   // create distance m look ahead points space from the last previous point in s-coordinate 
   double car_s = this->end_path_s;
-  // get in lane in e.g. 60 m ahead 
-  vector<double> next_wp0 = getXY(car_s+60,(2+4*lane),map_s,map_x,map_y);
-  vector<double> next_wp1 = getXY(car_s+90,(2+4*lane),map_s,map_x,map_y);
-  vector<double> next_wp2 = getXY(car_s+120,(2+4*lane),map_s,map_x,map_y);
+  // get in lane in e.g. 60 m ahead - smooth drive, 30 is more aggressive with less comfort
+  vector<double> next_wp0 = getXY(car_s+LANE_CHANGE_S,(2+4*lane),map_s,map_x,map_y);        //was 60
+  vector<double> next_wp1 = getXY(car_s+LANE_CHANGE_S+30.0,(2+4*lane),map_s,map_x,map_y);   //was 90
+  vector<double> next_wp2 = getXY(car_s+LANE_CHANGE_S+60.0,(2+4*lane),map_s,map_x,map_y);   //was 120
 
   ptsx.push_back(next_wp0[0]);
   ptsx.push_back(next_wp1[0]);
@@ -244,9 +244,10 @@ Trajectory Vehicle::SplineLineTrajectory(const map<int, traffic_data>& tf_data, 
   // control the speed limit from the section distance of 60m with the number of increment
   // |------------------ 60 m --------------------------|
   // |                   v m/s                          |
-  // |  0.02 sec   |	          |          |            |         
+  // |  0.02 sec   |	        |          |            |         
   // |     d m     |            |          |            |
   // |             x            x          x            x           x          x add 50-pev_s points 
+  // planning 60 m a head
   double target_x = 60.0;
   double target_y = spl(target_x);
   double target_dist = sqrt((target_x*target_x) + (target_y*target_y));

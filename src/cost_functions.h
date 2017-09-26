@@ -225,7 +225,7 @@ vector<double> buffer_cost(const Vehicle& myVehicle, const Trajectory& trajector
   int lane =  myVehicle.proposed_lane;
   // time gap front and back
   vector<double> time_gap = get_closest_gap_inlane(lane, myVehicle.s, traffic_predictions);
-  cout << "time gap front: " << time_gap[0] << " time gap back: "  << time_gap[1] << endl;
+  //cout << "time gap front: " << time_gap[0] << " time gap back: "  << time_gap[1] << endl;
   
   // buffer cost- the bigger gap the lower cost
   // e.g. front 19 sec, back 1 sec should cost a lot more than front 10 sec, back 10 sec 
@@ -292,8 +292,8 @@ vector<double> calculate_cost(const Vehicle& myVehicle, const Trajectory& trajec
   //cout << "sd_lane: " << sd_goal << endl;
   //cout << "col_chk: " << col_cost << endl;
   //cout << "buf_chk: " << buf_cost[0] << endl;
-  cout << "speed_eff: " << speed_cost << endl;
-  cout << " --- total cost---- " << total_cost << endl;
+  //cout << "speed_eff: " << speed_cost << endl;
+  //cout << " --- total cost---- " << total_cost << endl;
   
   double time_gap_front = buf_cost[1];
   double time_gap_back  = buf_cost[2];
