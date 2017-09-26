@@ -181,7 +181,7 @@ In navigating our car through the road traffic, the behaviour of driving in this
 
 In the design of the state transition, the car will only check for the current lane and its neighbour lane. So if the car is in lane 0 it only has 'keeping lane' or 'changing lane right' transition state. But if the car is in lane 1 it has 3 options, 1-keeping lane, 2-goto the left, 3-goto the right in the transition state. 
 
-**Cost Functions**
+**Cost Functions**  
 The transition of these states are defined by the 'MINIMUM'cost of actions in association with the traffic, our car state (current lane), the goal point, and the trajectory defined by the following cost factors.
 
 The implementation of these cost function are in **cost_functions.h**.
