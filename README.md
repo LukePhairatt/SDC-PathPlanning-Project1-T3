@@ -224,8 +224,10 @@ The trajectory is a 50-points path with a 0.02 timestep (1 second path).
 The other safety related parameters are  
 
 BUFFER_DIST = 50;    // keep distance (default 50) if 40 the car is going faster but more risk of sudden brake  
+
 BUFFER_TIME = 3;     // minimum time gap between vehciles considering for changing lane  
-                     // 2 secs make it more aggressive in driving with more risk taken   
+                     // 2 secs make it more aggressive in driving with more risk taken 
+  
 LANE_CHANGE_S = 30;  // get in lane trajectory (60 m makes the smooth and slow change for comfort but may stay outside of the lane too long)   
 
 The car completes the lap of 4.32 miles in about 6 minutes (5.18 mins for driving 50 mph all the way).
