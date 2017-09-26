@@ -143,7 +143,7 @@ In addition to this xy path, the sd path transformed from this xy path is requir
 
 					[code: helper.cpp in XYtoSD(..), lines 197-215]
 
-**Collision check** 
+**Collision check**   
 Futher calculation has been made here to make sure that the new planned points conform the speed and accelleration limit as well as collision with the vehicle in front. In order to avoid collision with the front vehicle in the desire lane, the speed of the vehicle (target speed) was conditioned on the gap between our car and a closest car in front.  
 
 
@@ -164,7 +164,7 @@ In this implementation, if the gap between the end of our car trajectory and the
 
 If there are no potential collision, this speed is then fed to the next level of control to make sure it comply with the speed/accelleration limit (see below).
 
-**Speed and accelleration control**
+**Speed and accelleration control**   
 Without using the PID or MPC controller (e.g. perfect controller- no significant noise and delay), the reference speed (target speed) for the path generation has been recorded every loop as a reference for the next cycle. We assume the actual speed won't be too far off. In this case if the current reference speed is below the speed limit, we could speed the car up by 0.15 m/s or slow it down by the same amount if it goes over the limit.  
 
 					[code: vehicle.cpp in get_next_target_speed(..), lines 150-160]
