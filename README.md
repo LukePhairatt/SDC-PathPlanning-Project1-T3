@@ -219,7 +219,7 @@ The decision making in driving is influenced by the weight factors on these cost
 
  
 ### Experiment and Result    
-The result video is experimented with the weight factors as in constant.h.  
+The result video is experimented with the weight factors as defined in "constant.h".  
 The trajectory is a 50-points path with a 0.02 timestep (1 second path).   
 The other safety related parameters are  
 
